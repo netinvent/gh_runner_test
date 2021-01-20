@@ -19,22 +19,35 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: self-hosted
+    strategy:
+      matrix:
+        python-version: [ '2.x', '3.3', '3.4', '3.5', '3.6', '3.7', '3.8', 'pypy-2.7', 'pypy-3.6', 'pypy-3.7' ]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout git
       - uses: actions/checkout@v2
 
-      # Run with Powershell core
-      - name: Run a one-line script
-        run: echo "$env:COMPUTERNAME - I am a git runner ;)"
-        shell: powershell
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      # Show runner ID
+      - name: Run a one-line script
+        run: echo "I am git runner $env:COMPUTERNAME ;)"
+        shell: powershell
+      
+      # Show python version
+      - name: Show python Version 
+        run: python -c "import sys; print(sys.version)"
+
+      # Pylint
+      - name: Run pylint
+        run: python -m pylint
+        
   finish:
     runs-on: self-hosted
     steps:
