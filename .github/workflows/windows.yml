@@ -28,7 +28,7 @@ jobs:
       # Run with Powershell core
       - name: Run a one-line script
         run: echo "$env:COMPUTERNAME - I am a git runner ;)"
-        shell: pwsh
+        shell: powershell
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
@@ -40,5 +40,5 @@ jobs:
     steps:
       - name: Prepare for Shutdown with a grace time of 30 seconds
         run: shutdown -s -t 30
-        shell: pwsh
+        shell: cmd
             
