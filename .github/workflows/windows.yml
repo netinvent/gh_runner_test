@@ -16,7 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  buildjob:
     # The type of runner that the job will run on
     runs-on: self-hosted
     strategy:
@@ -49,6 +49,8 @@ jobs:
         run: python -m pylint
         
   finish:
+    if: always()
+    needs: buildjob
     runs-on: self-hosted
     steps:
       - name: Prepare for Shutdown with a grace time of 30 seconds
