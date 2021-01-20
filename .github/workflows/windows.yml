@@ -39,6 +39,6 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Prepare for Shutdown with a grace time of 30 seconds
-        run: shutdown -s -t 30
+        run: shutdown -s -t 60
         shell: cmd
             
